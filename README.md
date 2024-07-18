@@ -124,7 +124,7 @@ which will end up doing an Object.assign (gingerly) of the item object to the my
 
 It can also do the same for server generated JSON attributes:
 
-```JavaScript
+```html
 
 <table>
     <thead><th>Name</th><th>SSN Number</thead>

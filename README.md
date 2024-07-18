@@ -28,7 +28,31 @@ Things become much more ambiguous if no ShadowDOM is used.  In my view, if the c
 
 In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
 
-## So what does be-scoped do?
+Anyway, for the scenarios listed above, this custom enhancement doesn't add any value.
+
+Where this enhancement may help is with another approach to looping.  Let's consider first a scenario where we are almost forced to adopt an alternative approach:  Where the looping code is generating rows (tr elements) of the HTMLTable element:
+
+```JavaScript
+html`
+<table>
+    <thead><th>Name</th><th>SSN Number</thead>
+    <tbody>
+${myList.map(item => html`
+    <tr>
+        <td>${item.name}</td>
+        <td>${item.ssn}</td>
+    </tr>
+`)}
+    </tbody>
+</table>
+`
+```
+
+While the example above so far poses no issues, we start to immediately get a sense of unease the moment we need to start performing intimate actions on individual rows / items of the view model.  How do we get access to the view model item associated with the row?  We start inventing ways to handle this, with id's, lots of ugly look ups, etc.  So we could have the fleeting thought "Hey, why don't I create a web component to contain each row, that can encapsulate the view model for each item of the list"? But of course the HTML decorum for tables doesn't allow us to do that.
+
+I would venture that this problem space accounts for part of the appeal that frameworks bring to the table, beyond what can be handled by custom elements alone.  Lack of an interoperable solution to this fundamental problem may be partly to blame for causing this  framework "lock-in." We need an interoperable solution to this problem.
+
+## So what does be-gingerly do?
 
 It commits a secondary sin, and attaches a property getter, "assignGingerly" to elements that commit the cardinal sin of  adding attribute "itemscope" that has a value pointing to the name of an inner custom element.
 

@@ -25,10 +25,7 @@ Now our custom element can go in one of two ways:  It can use Shadow DOM or not 
 
 Things become much more ambiguous if no ShadowDOM is used.  In my view, if the custom element chooses to generate its own children, that should work fine so long as the "framework" takes a "mind your own business, and don't do unnecessary work" approach to rendering.  The code snippet above, which uses the "framework built into the browser" would certainly do that.  It's unclear to me how uniformly that fundamental tenet is adhered to with modern frameworks.  In the past, during the heyday of VDOM hype, I would see instances where the framework would appear to go through the thought process:  "hey, I didn't generate those child elements, how dare anything give birth to elements I didn't give permission to? I am going to blow that all away" on a re-render.  I can't vouch for what the latest state of the art frameworks do, just be forewarned.
 
-
-In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
-
-Anyway, for the scenarios listed above, this custom enhancement doesn't add any value.
+Anyway, for the scenarios listed above, this custom enhancement isn't an invaluable ally.  We can by perfectly without it.
 
 Where this enhancement may help is with another approach to looping.  Let's consider first a scenario where we are almost forced to adopt an alternative approach:  Where the looping code is generating rows (tr elements) of the HTMLTable element:
 
@@ -48,9 +45,13 @@ ${myList.map(item => html`
 `
 ```
 
+
+
 While the example above so far poses no issues, we start to immediately get a sense of unease the moment we need to start performing intimate actions on individual rows / items of the view model.  How do we get access to the view model item associated with the row?  We start inventing ways to handle this, with id's, lots of ugly look ups, etc.  So we could have the fleeting thought "Hey, why don't I create a web component to contain each row, that can encapsulate the view model for each item of the list"? But of course the HTML decorum for tables doesn't allow us to do that.
 
 I would venture that this problem space accounts for part of the appeal that frameworks bring to the table, beyond what can be handled by custom elements alone.  Lack of an interoperable solution to this fundamental problem may be partly to blame for causing this  framework "lock-in." We need an interoperable solution to this problem.
+
+If we can solve this solution in a powerful way, we could then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and see if using a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
 
 The new approach this enhancement takes is to work in conjunction with recent enhancements to the [DSS](https://github.com/bahrus/trans-render/wiki/VIII.--Directed-Scoped-Specifiers-(DSS)#what-do-we-mean-by-hostish), which does the following:
 

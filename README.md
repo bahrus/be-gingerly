@@ -98,7 +98,7 @@ then anywhere we would want to do:  el.getRootNode().host we instead call the fu
 In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
 ## So what does be-gingerly do?
 
-It commits a secondary sin, and attaches a property getter, "assignGingerly" to elements that commit the cardinal sin of  adding attribute "itemscope" that has a value pointing to the name of an inner custom element.
+It commits a secondary sin, and attaches a property getter, "assignGingerly" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.
 
 Frameworks can then pass objects (not primitives) directly to the element:
 
@@ -129,12 +129,13 @@ It can also do the same for server generated JSON attributes:
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-    <tr itemscope=my-item  🫚='{"name": "Burt", "ssn": "123-45-6789"}'>
-        <td>
-            <my-item></my-item>
-            Burt
-        </td>
-        <td>123-45-6789</td>
+        <tr itemscope="my-item"  🫚='{"name": "Burt", "ssn": "123-45-6789"}'>
+            <td>
+                <my-item></my-item>
+                Burt
+            </td>
+            <td>123-45-6789</td>
+        </tr>
     </tbody>
 </table>
 

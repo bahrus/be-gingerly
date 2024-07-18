@@ -52,6 +52,49 @@ While the example above so far poses no issues, we start to immediately get a se
 
 I would venture that this problem space accounts for part of the appeal that frameworks bring to the table, beyond what can be handled by custom elements alone.  Lack of an interoperable solution to this fundamental problem may be partly to blame for causing this  framework "lock-in." We need an interoperable solution to this problem.
 
+The new approach this enhancement takes is to work in conjunction with recent enhancements to the [DSS](https://github.com/bahrus/trans-render/wiki/VIII.--Directed-Scoped-Specifiers-(DSS)#what-do-we-mean-by-hostish), which does the following:
+
+We push the standard HTML vocabulary a tad in order to be as transparent as possible as far as what is happening, stretching the boolean [itemscope attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) a little beyond its recognized platform role:
+
+```JavaScript
+html`
+<table>
+    <thead><th>Name</th><th>SSN Number</thead>
+    <tbody>
+${myList.map(item => html`
+    <tr itemscope=my-item>
+        <td>
+            <my-item .item=${item}></my-item>
+            ${item.name}
+        </td>
+        <td>${item.ssn}</td>
+`)}
+    </tbody>
+</table>
+`
+```
+
+So then if the libraries we work with have an easy-to-reproduce-in-any-framework "virtual host" getter that includes logic something like this:
+
+```JavaScript
+async function getHostish(el: Element){
+    const closestItemScope = el.closest('itemscope');
+    if(closestItemScope !== null){
+        if(closestItemScope.localName.indexOf('-')){
+            //it's a custom element so this is probably our host
+            return closestItemScope;
+        }
+        const attr = closestItemScope.getAttribute('itemscope');
+        return closestItemScope.querySelector(attr);
+    }
+    //get shadow root host
+    return el.getRootNode().host;
+}
+```
+
+then anywhere we would want to do:  el.getRootNode().host we instead call the function above, then we can work with any combination of solution -- with ShadowDOM, without ShadowDOM, as well as scenarios where neither works, because we can't contain each HTML item, as discussed above.
+
+In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
 ## So what does be-gingerly do?
 
 It commits a secondary sin, and attaches a property getter, "assignGingerly" to elements that commit the cardinal sin of  adding attribute "itemscope" that has a value pointing to the name of an inner custom element.

@@ -10,6 +10,12 @@ How are they so effective at doing that?  I'll tell you how.
 
 Okay, it's a theory anyway.
 
+Sometimes when we are generating a loop of HTML on the server or on the client, we need a convenient place to pass the view model responsible for 
+generating the data that gets interspersed into the HTML section of the loop.
+
+
+
+
 In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
 
 ## So what does be-scoped do?

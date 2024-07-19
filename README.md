@@ -131,7 +131,7 @@ It can also do the same for server generated JSON attributes:
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-        <tr itemscope="my-item"  🫚 host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
+        <tr itemscope="my-item"  🫚 data-host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
             <td>
                 <my-item></my-item>
                 Burt

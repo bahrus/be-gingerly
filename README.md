@@ -101,7 +101,7 @@ In other words, having established this protocol by necessity, we can then go ba
 
 It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, and attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.  The host points to the custom element instance that the itemscope instances points to
 
-Frameworks can then pass objects (as well as primitives) directly to the element:
+Frameworks can then pass objects directly to the element that passes in the latest property values:
 
 ```JavaScript
 html`

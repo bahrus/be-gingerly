@@ -32,9 +32,15 @@ class BeGingerly extends BE {
         if (Object.hasOwn(enhancedElement, 'host'))
             return {};
         const queue = [];
-        const initVal = enhancedElement['host'];
-        if (initVal !== undefined)
-            queue.push(initVal);
+        const initPropVals = enhancedElement['host'];
+        if (enhancedElement instanceof HTMLElement) {
+            if (enhancedElement.dataset.hostInitProps) {
+                const parsedHostProps = JSON.parse(enhancedElement.dataset.hostInitProps);
+                queue.push(parsedHostProps);
+            }
+        }
+        if (initPropVals !== undefined)
+            queue.push(initPropVals);
         let ref;
         const ce = this.#doSearch(self);
         if (ce !== null)

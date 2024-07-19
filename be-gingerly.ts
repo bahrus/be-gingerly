@@ -36,8 +36,15 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
         const {enhancedElement, cnt, itemCE} = self;
         if(Object.hasOwn(enhancedElement, 'host')) return {};
         const queue: Array<any> = [];
-        const initVal = (<any>enhancedElement)['host'];
-        if(initVal !== undefined) queue.push(initVal);
+        const initPropVals = (<any>enhancedElement)['host'];
+        if(enhancedElement instanceof HTMLElement){
+            if(enhancedElement.dataset.hostInitProps){
+                const parsedHostProps = JSON.parse(enhancedElement.dataset.hostInitProps);
+                queue.push(parsedHostProps);
+            }
+        }
+        if(initPropVals !== undefined) queue.push(initPropVals);
+
         let ref: WeakRef<Element> | undefined;
         const ce = this.#doSearch(self);
         if(ce !== null) ref = new WeakRef(ce);

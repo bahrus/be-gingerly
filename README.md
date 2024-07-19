@@ -122,7 +122,7 @@ ${myList.map(item => html`
 `
 ```
 
-In the case where an entire object is passed in, it will merge the object in using the ought-to-be-built-into-the-platform-if-only-they-would-might-y-needs [Object].[assignGingerly](https://github.com/bahrus/trans-render/wiki/II.--Signals-vs-Roundabouts#merging-traffic-via-assigngingerly-wip) of the item object to the my-item custom element.  That's where the name and emoji of this enhancement comes from.
+In the case where an entire object is passed in, it will merge the object in using the ought-to-be-built-into-the-platform-if-only-they-would-serve-my-needs-for-once [Object].[assignGingerly](https://github.com/bahrus/trans-render/wiki/II.--Signals-vs-Roundabouts#merging-traffic-via-assigngingerly-wip) of the item object to the my-item custom element.  That's where the name and emoji of this enhancement comes from.
 
 It can also do the same for server generated JSON attributes:
 

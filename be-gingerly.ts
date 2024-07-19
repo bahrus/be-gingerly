@@ -3,17 +3,82 @@ import {BE, BEConfig} from 'be-enhanced/BE.js';
 import {Actions, AP, PAP, ProPAP} from './types';
 import { Positractions, PropInfo } from 'trans-render/froop/types';
 import {IEnhancement,  BEAllProps, EnhancementInfo} from 'trans-render/be/types';
+import {assignGingerly} from 'trans-render/lib/assignGingerly.js';
 
 class BeGingerly extends BE<AP, Actions> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
+        propDefaults:{
+            cnt: 0
+        },
         propInfo:{
             ...beCnfg.propInfo,
             queue: {},
             itemCE: {},
+        },
+        compacts: {
+            when_itemCE_changes_invoke_attachProp: 0
+        },
+        actions: {
+            doPass: {
+                ifAllOf: ['cnt', 'ref', 'queue']
+            },
+            searchAgain:  {
+                ifAllOf: ['cnt'],
+                ifNoneOf: ['ref'],
+            }
         }
     };
+    
+    async attachProp(self: this) {
+        const {enhancedElement, cnt, itemCE} = self;
+        if(Object.hasOwn(enhancedElement, 'assignGingerly')) return {};
+        const queue: Array<any> = [];
+        const initVal = (<any>enhancedElement)['assignGingerly'];
+        if(initVal !== undefined) queue.push(initVal);
+        Object.defineProperty(enhancedElement, 'assignGingerly', {
+            set(nv: any){
+                queue.push(nv);
+            }
+        });
+        let ref: WeakRef<Element> | undefined;
+        const ce = this.#doSearch(self);
+        if(ce !== null) ref = new WeakRef(ce);
+        return {
+            queue,
+            cnt: cnt! + 1,
+            ref
+        } as AP;
+    }
 
-
+    async doPass(self: this) {
+        const {ref, queue} = self;
+        const ce = ref?.deref();
+        if(ce === undefined){
+            return {
+                ref: undefined,
+            }
+        }
+        while(queue!.length > 0 ){
+            const fi = queue!.shift();
+            await assignGingerly(ce, fi)
+        }
+        return {};
+    }
+    #doSearch(self: this){
+        const {enhancedElement, itemCE} = self;
+        const ce = enhancedElement.querySelector(itemCE!);
+        return ce;
+    }
+    searchAgain(self: this): PAP {
+        const ce = this.#doSearch(self);
+        if(ce !== null){
+            return {
+                ref: new WeakRef(ce),
+            }
+        }else{
+            return {}
+        }
+    }
 }
 
 interface BeGingerly extends AP{}

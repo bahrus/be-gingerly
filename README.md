@@ -114,6 +114,7 @@ ${myList.map(item => html`
             ${item.name}
         </td>
         <td>${item.ssn}</td>
+    </tr>
 `)}
     </tbody>
 </table>

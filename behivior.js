@@ -4,6 +4,12 @@ export const emc = {
     base: 'be-gingerly',
     enhPropKey: 'beGingerly',
     map: {},
+    osotas: [
+        {
+            name: 'itemprop',
+            mapsTo: 'itemCE'
+        }
+    ],
     importEnh: async () => {
         const { BeGingerly } = await import('./be-gingerly.js');
         return BeGingerly;

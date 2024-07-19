@@ -6,7 +6,14 @@ import {IEnhancement,  BEAllProps, EnhancementInfo} from 'trans-render/be/types'
 
 class BeGingerly extends BE<AP, Actions> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
+        propInfo:{
+            ...beCnfg.propInfo,
+            queue: {},
+            itemCE: {},
+        }
     };
+
+
 }
 
 interface BeGingerly extends AP{}

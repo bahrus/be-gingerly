@@ -9,7 +9,8 @@
 		"skipLibCheck": true
 	},
 	"files": [
-		"🫚.ts"
+		"🫚.ts",
+        "MoodStone/MoodStone.ts"
 	],
 	"exclude":[
 		"node_modules"

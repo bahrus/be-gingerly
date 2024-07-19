@@ -6,7 +6,7 @@ export const emc = {
     map: {},
     osotas: [
         {
-            name: 'itemprop',
+            name: 'itemscope',
             mapsTo: 'itemCE'
         }
     ],

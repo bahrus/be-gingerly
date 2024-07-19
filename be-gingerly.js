@@ -10,6 +10,7 @@ class BeGingerly extends BE {
             ...beCnfg.propInfo,
             queue: {},
             itemCE: {},
+            ref: {},
         },
         compacts: {
             when_itemCE_changes_invoke_attachProp: 0

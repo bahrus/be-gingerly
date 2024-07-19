@@ -14,6 +14,7 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
             ...beCnfg.propInfo,
             queue: {},
             itemCE: {},
+            ref: {},
         },
         compacts: {
             when_itemCE_changes_invoke_attachProp: 0

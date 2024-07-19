@@ -10,7 +10,7 @@ export const emc: EMC<any, AP> = {
     },
     osotas: [
         {
-            name: 'itemprop',
+            name: 'itemscope',
             mapsTo: 'itemCE'
         }
     ],

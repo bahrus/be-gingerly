@@ -1,0 +1,1 @@
+import {IEnhancement} from 'trans-render/be/types';

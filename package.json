@@ -1,11 +1,43 @@
 {
   "name": "be-gingerly",
   "version": "0.0.0",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "template",
+    "bind"
+  ],
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "be-gingerly.js",
+  "module": "be-gingerly.js",
+  "exports": {
+    ".": "./be-gingerly.js",
+    "./be-gingerly.js": "./be-gingerly.js",
+    "./🫚.js": "./🫚.js",
+    "./behivior.js": "./behivior.js"
   },
-  "author": "",
+  "files": [
+    "*.js",
+    "types.d.ts"
+  ],
+  "types": "types.d.ts",
+  "dependencies": {
+    "be-enhanced": "0.0.112",
+    "be-hive": "0.0.192",
+    "trans-render": "0.0.798"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.45.2",
+    "may-it-serve": "0.0.8"
+  },
+  "scripts": {
+    "serve": "node node_modules/may-it-serve",
+    "test": "playwright test",
+    "safari": "npx playwright wk http://localhost:3030",
+    "update": "ncu -u && npm install"
+  },
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT"
 }

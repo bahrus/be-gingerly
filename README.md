@@ -25,9 +25,9 @@ Now our custom element can go in one of two ways:  It can use Shadow DOM or not 
 
 Things become much more ambiguous if no ShadowDOM is used.  In my view, if the custom element chooses to generate its own children, that should work fine so long as the "framework" takes a "mind your own business, and don't do unnecessary work" approach to rendering.  The code snippet above, which uses the "framework built into the browser" would certainly do that.  It's unclear to me how uniformly that fundamental tenet is adhered to with modern frameworks.  In the past, during the heyday of VDOM hype, I would see instances where the framework would appear to go through the thought process:  "hey, I didn't generate those child elements, how dare anything give birth to elements I didn't give permission to? I am going to blow that all away" on a re-render.  I can't vouch for what the latest state of the art frameworks do, just be forewarned.
 
-Anyway, for the scenarios listed above, this custom enhancement isn't an invaluable ally.  We can by perfectly without it.
+Anyway, for the scenarios listed above, this custom enhancement isn't an invaluable ally.  We can get by perfectly without it (but I think it's possible we may want to use it anyway in these scenarios).
 
-Where this enhancement may help is with another approach to looping.  Let's consider first a scenario where we are almost forced to adopt an alternative approach:  Where the looping code is generating rows (tr elements) of the HTMLTable element:
+Where this enhancement may be critical is with another looping scenario.  Consider what happens when generating rows (tr elements) of the HTMLTable element:
 
 ```JavaScript
 html`
@@ -96,6 +96,7 @@ async function getHostish(el: Element){
 then anywhere we would want to do:  el.getRootNode().host we instead call the function above, then we can work with any combination of solution -- with ShadowDOM, without ShadowDOM, as well as scenarios where neither works, because we can't contain each HTML item, as discussed above.
 
 In other words, having established this protocol by necessity, we can then go back to other scenarios where HTML decorum would allow for Shadowless containers, but with the ambiguity of responsibility issue listed above, and use a non visual view model custom element as our general solution, that can then circumvent some of the sticky questions regarding division of responsibility.
+
 ## So what does be-gingerly do?
 
 It commits a secondary sin, and attaches a property getter, "assignGingerly" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.

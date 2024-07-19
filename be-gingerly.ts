@@ -9,7 +9,7 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
     };
 }
 
-interface BeGingerly extends AllProps{}
+interface BeGingerly extends AP{}
 
 await BeGingerly.bootUp();
  

@@ -3,7 +3,7 @@ import {MountObserver, MOSE} from 'mount-observer/MountObserver.js';
 import {AP} from './types';
 
 export const emc: EMC<any, AP> = {
-    
+    enhPropKey: 'beGingerly'
 };
 
 const mose = seed(emc);

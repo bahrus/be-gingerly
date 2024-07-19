@@ -26,28 +26,39 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
                 ifAllOf: ['cnt'],
                 ifNoneOf: ['ref'],
             }
-        }
+        },
+        positractions: [
+            ...beCnfg.positractions!,
+        ]
     };
     
     async attachProp(self: this) {
         const {enhancedElement, cnt, itemCE} = self;
-        if(Object.hasOwn(enhancedElement, 'assignGingerly')) return {};
+        if(Object.hasOwn(enhancedElement, 'host')) return {};
         const queue: Array<any> = [];
-        const initVal = (<any>enhancedElement)['assignGingerly'];
+        const initVal = (<any>enhancedElement)['host'];
         if(initVal !== undefined) queue.push(initVal);
-        Object.defineProperty(enhancedElement, 'assignGingerly', {
-            set(nv: any){
-                queue.push(nv);
-            }
-        });
         let ref: WeakRef<Element> | undefined;
         const ce = this.#doSearch(self);
         if(ce !== null) ref = new WeakRef(ce);
+
+        Object.defineProperty(enhancedElement, 'host', {
+            get(){
+                return self.ref?.deref();
+            },
+            set(nv: any){
+                queue.push(nv);
+            },
+            enumerable: true,
+            configurable: true,
+        });
         return {
             queue,
             cnt: cnt! + 1,
-            ref
+            ref,
+            resolved: true,
         } as AP;
+
     }
 
     async doPass(self: this) {

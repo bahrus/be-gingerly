@@ -22,29 +22,38 @@ class BeGingerly extends BE {
                 ifAllOf: ['cnt'],
                 ifNoneOf: ['ref'],
             }
-        }
+        },
+        positractions: [
+            ...beCnfg.positractions,
+        ]
     };
     async attachProp(self) {
         const { enhancedElement, cnt, itemCE } = self;
-        if (Object.hasOwn(enhancedElement, 'assignGingerly'))
+        if (Object.hasOwn(enhancedElement, 'host'))
             return {};
         const queue = [];
-        const initVal = enhancedElement['assignGingerly'];
+        const initVal = enhancedElement['host'];
         if (initVal !== undefined)
             queue.push(initVal);
-        Object.defineProperty(enhancedElement, 'assignGingerly', {
-            set(nv) {
-                queue.push(nv);
-            }
-        });
         let ref;
         const ce = this.#doSearch(self);
         if (ce !== null)
             ref = new WeakRef(ce);
+        Object.defineProperty(enhancedElement, 'host', {
+            get() {
+                return self.ref?.deref();
+            },
+            set(nv) {
+                queue.push(nv);
+            },
+            enumerable: true,
+            configurable: true,
+        });
         return {
             queue,
             cnt: cnt + 1,
-            ref
+            ref,
+            resolved: true,
         };
     }
     async doPass(self) {

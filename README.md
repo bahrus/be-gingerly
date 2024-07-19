@@ -99,9 +99,9 @@ In other words, having established this protocol by necessity, we can then go ba
 
 ## So what does be-gingerly do?
 
-It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, and attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.
+It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, and attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.  The host points to the custom element instance that the itemscope instances points to
 
-Frameworks can then pass objects (not primitives) directly to the element:
+Frameworks can then pass objects (as well as primitives) directly to the element:
 
 ```JavaScript
 html`
@@ -122,7 +122,7 @@ ${myList.map(item => html`
 `
 ```
 
-which will end up doing an [Object].[assignGingerly](https://github.com/bahrus/trans-render/wiki/II.--Signals-vs-Roundabouts#merging-traffic-via-assigngingerly-wip) of the item object to the my-item custom element.
+In the case where an entire object is passed in, it will merge the object in using the ought-to-be-built-into-the-platform-if-only-they-would-might-y-needs [Object].[assignGingerly](https://github.com/bahrus/trans-render/wiki/II.--Signals-vs-Roundabouts#merging-traffic-via-assigngingerly-wip) of the item object to the my-item custom element.  That's where the name and emoji of this enhancement comes from.
 
 It can also do the same for server generated JSON attributes:
 

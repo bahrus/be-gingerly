@@ -127,7 +127,6 @@ In the case where an entire object is passed in, it will merge the object in usi
 It can also do the same for server generated JSON attributes:
 
 ```html
-
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
@@ -140,9 +139,29 @@ It can also do the same for server generated JSON attributes:
         </tr>
     </tbody>
 </table>
-
 ```
 
 ## Passing in the ownerElement
 
 If *be-gingerly* finds that the custom element has property "ownerElement", it will first pass a weak reference to the adorned element into that property.
+
+## Canonical name
+
+To use the canonical name, reference behivior.js instead of 🫚.js and be more gingerly:
+
+
+```html
+<table>
+    <thead><th>Name</th><th>SSN Number</thead>
+    <tbody>
+        <tr itemscope="my-item"  be-gingerly data-host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
+            <td>
+                <my-item></my-item>
+                Burt
+            </td>
+            <td>123-45-6789</td>
+        </tr>
+    </tbody>
+</table>
+```
+

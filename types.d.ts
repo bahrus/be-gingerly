@@ -17,6 +17,6 @@ export type ProPAP = Promise<PAP>;
 export interface Actions{
     attachProp(self: this): ProPAP;
     doPass(self: this): ProPAP;
-    searchAgain(self: this): PAP;
+    searchAgain(self: this): ProPAP;
 }
 

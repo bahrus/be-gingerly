@@ -47,7 +47,7 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
         if(initPropVals !== undefined) queue.push(initPropVals);
 
         let ref: WeakRef<Element> | undefined;
-        const ce = this.#doSearch(self);
+        const ce = await this.#doSearch(self);
         if(ce !== null) ref = new WeakRef(ce);
         if(Object.hasOwn(enhancedElement, 'ownerElement')){
             (<any>enhancedElement).ownerElement = ref;
@@ -85,13 +85,16 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
         }
         return {};
     }
-    #doSearch(self: this){
+    async #doSearch(self: this){
         const {enhancedElement, itemCE} = self;
-        const ce = enhancedElement.querySelector(itemCE!);
-        return ce;
+        if(enhancedElement instanceof HTMLTemplateElement){
+            const {withTemplate} = await import('./withTemplate.js');
+            return await withTemplate(self);
+        }
+        return enhancedElement.querySelector(itemCE!);
     }
-    searchAgain(self: this): PAP {
-        const ce = this.#doSearch(self);
+    async searchAgain(self: this) {
+        const ce = await this.#doSearch(self);
         if(ce !== null){
             return {
                 ref: new WeakRef(ce),

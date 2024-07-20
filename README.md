@@ -220,6 +220,67 @@ In fact, if *be-gingerly* is applied to a template that doesn't yet have an item
 6.  Assigns the itemref attribute.
 7.  Does an oTemplate.after to append the content of the template adjacently.
 
+Here's a fully working example to hopefully make it clearer how we are "virtualizing" custom elements so that they can act as table rows:
+
+```html
+<script>
+    customElements.define('table-row', class extends HTMLElement {
+        static config = {
+            mainTemplate: String.raw `
+            <tr>
+                <th scope=row><slot name=self></slot><slot name=person></slot></th>
+                <th><slot name=interest></slot></th>
+                <th><slot name=age></slot></th>
+            </tr>
+            `
+        };
+    });
+</script>
+<table>
+    <caption>
+        Front-end web developer course 2021
+    </caption>
+    <thead>
+        <tr>
+        <th scope="col">Person</th>
+        <th scope="col">Most interest in</th>
+        <th scope="col">Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template itemscope=table-row 🫚>
+            <span slot=person>Chris</span>
+            <span slot=interest>HTML tables</span>
+            <span slot=age>22</span>
+        </template>
+        <template itemscope=table-row 🫚>
+            <span slot=person>Dennis</span>
+            <span slot=interest>Web accessibility</span>
+            <span slot=age>45</span>
+        </template>
+        <template itemscope=table-row  🫚>
+            <span slot=person>Sarah</span>
+            <span slot=interest>JavaScript frameworks</span>
+            <span slot=age>29</span>
+        </template>
+        <template itemscope=table-row 🫚>
+            <span slot=person>Karen</span>
+            <span slot=interest>Web performance</span>
+            <span slot=age>36</span>
+        </template>
+    </tbody>
+    <tfoot>
+        <tr>
+        <th scope="row" colspan="2">Average age</th>
+        <td>33</td>
+        </tr>
+    </tfoot>
+    </table>
+<script type=module>
+    import '/🫚.js';
+</script>
+```
+
 ## Viewing Your Element Locally
 
 Any web server that can serve static files will do, but...

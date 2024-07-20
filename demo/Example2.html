@@ -18,7 +18,7 @@
 </head>
 <body>
     <script>
-        customElements.define('table-row', class {
+        customElements.define('table-row', class extends HTMLElement {
             static config = {
                 mainTemplate: String.raw `
                 <tr>

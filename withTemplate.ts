@@ -12,19 +12,18 @@ export async function withTemplate(self: BeGingerly): Promise<HTMLElement | null
         }
         return null;
     }
-    const ctr = customElements.whenDefined(itemCE!) as any;
-    const {config} = ctr;
-    const {mainTemplate} = config;
+    const ctr = await customElements.whenDefined(itemCE!) as any;
+    const mainTemplate = ctr?.config?.mainTemplate;
     switch(typeof mainTemplate){
         case 'string':
             const templ = document.createElement('template');
             templ.innerHTML = mainTemplate;
-            config.mainTemplate = templ;
+            ctr.config.mainTemplate = templ;
             break;
         case 'undefined':
             throw 'CE must provide config.mainTemplate';
     }
-    const templToClone = config.mainTemplate as HTMLTemplateElement;
+    const templToClone = ctr.config.mainTemplate as HTMLTemplateElement;
     const clone = templToClone.content.cloneNode(true) as DocumentFragment;
     const returnObj = new ctr();
     const selfSlot = clone.querySelector('slot[name="self"]');

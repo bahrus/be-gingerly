@@ -10,7 +10,8 @@
 	},
 	"files": [
 		"🫚.ts",
-        "MoodStone/MoodStone.ts"
+        "MoodStone/MoodStone.ts",
+		"SoulSearcher/SoulSearcher.ts"
 	],
 	"exclude":[
 		"node_modules"

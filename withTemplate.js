@@ -12,19 +12,18 @@ export async function withTemplate(self) {
         }
         return null;
     }
-    const ctr = customElements.whenDefined(itemCE);
-    const { config } = ctr;
-    const { mainTemplate } = config;
+    const ctr = await customElements.whenDefined(itemCE);
+    const mainTemplate = ctr?.config?.mainTemplate;
     switch (typeof mainTemplate) {
         case 'string':
             const templ = document.createElement('template');
             templ.innerHTML = mainTemplate;
-            config.mainTemplate = templ;
+            ctr.config.mainTemplate = templ;
             break;
         case 'undefined':
             throw 'CE must provide config.mainTemplate';
     }
-    const templToClone = config.mainTemplate;
+    const templToClone = ctr.config.mainTemplate;
     const clone = templToClone.content.cloneNode(true);
     const returnObj = new ctr();
     const selfSlot = clone.querySelector('slot[name="self"]');

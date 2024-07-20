@@ -171,7 +171,7 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 </table>
 ```
 
-## Support flat hierarchies [TODO]
+## Support flat hierarchies [Untested]
 
 Sometimes out loop needs to group multiple rows of the table together in one loop iteration.  To support this, we need to search for the "hosting" custom element within all the referenced itemref's:
 
@@ -195,7 +195,7 @@ Sometimes out loop needs to group multiple rows of the table together in one loo
 </table>
 ```
 
-## Expanding the template [TODO]
+## Expanding the template
 
 In fact, if *be-gingerly* is applied to a template that doesn't yet have an itemref attribute:
 

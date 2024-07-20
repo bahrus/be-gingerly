@@ -229,8 +229,8 @@ Here's a fully working example to hopefully make it clearer how we are "virtuali
             mainTemplate: String.raw `
             <tr>
                 <th scope=row><slot name=self></slot><slot name=person></slot></th>
-                <th><slot name=interest></slot></th>
-                <th><slot name=age></slot></th>
+                <td><slot name=interest></slot></td>
+                <td><slot name=age></slot></td>
             </tr>
             `
         };
@@ -296,32 +296,32 @@ This ends up generating the following HTML:
         </tr>
     </thead>
     <tbody>
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-1"></template>
-            <tr id="be-gingerly-1">
-                <th scope="row"><table-row></table-row><span slot="person">Chris</span></th>
-                <th><span slot="interest">HTML tables</span></th>
-                <th><span slot="age">22</span></th>
-            </tr>
-            
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-0"></template>
-            <tr id="be-gingerly-0">
-                <th scope="row"><table-row></table-row><span slot="person">Dennis</span></th>
-                <th><span slot="interest">Web accessibility</span></th>
-                <th><span slot="age">45</span></th>
-            </tr>
-            
         <template itemscope="table-row" 🫚="" itemref="be-gingerly-3"></template>
             <tr id="be-gingerly-3">
-                <th scope="row"><table-row></table-row><span slot="person">Sarah</span></th>
-                <th><span slot="interest">JavaScript frameworks</span></th>
-                <th><span slot="age">29</span></th>
+                <th scope="row"><table-row></table-row><span slot="person">Chris</span></th>
+                <td><span slot="interest">HTML tables</span></td>
+                <td><span slot="age">22</span></td>
+            </tr>
+            
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-1"></template>
+            <tr id="be-gingerly-1">
+                <th scope="row"><table-row></table-row><span slot="person">Dennis</span></th>
+                <td><span slot="interest">Web accessibility</span></td>
+                <td><span slot="age">45</span></td>
             </tr>
             
         <template itemscope="table-row" 🫚="" itemref="be-gingerly-2"></template>
             <tr id="be-gingerly-2">
+                <th scope="row"><table-row></table-row><span slot="person">Sarah</span></th>
+                <td><span slot="interest">JavaScript frameworks</span></td>
+                <td><span slot="age">29</span></td>
+            </tr>
+            
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-0"></template>
+            <tr id="be-gingerly-0">
                 <th scope="row"><table-row></table-row><span slot="person">Karen</span></th>
-                <th><span slot="interest">Web performance</span></th>
-                <th><span slot="age">36</span></th>
+                <td><span slot="interest">Web performance</span></td>
+                <td><span slot="age">36</span></td>
             </tr>
             
     </tbody>
@@ -331,7 +331,7 @@ This ends up generating the following HTML:
         <td>33</td>
         </tr>
     </tfoot>
-    </table>
+</table>
 ```
 
 ## Viewing Your Element Locally

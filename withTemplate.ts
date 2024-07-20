@@ -1,4 +1,5 @@
 import {BeGingerly} from './be-gingerly.js';
+let cnt = 0;
 export async function withTemplate(self: BeGingerly): Promise<HTMLElement | null>{
     const {itemCE} = self;
     const templ = self.enhancedElement as HTMLTemplateElement;
@@ -37,6 +38,15 @@ export async function withTemplate(self: BeGingerly): Promise<HTMLElement | null
         targetSlot.after(slotPlaceHolder.cloneNode(true));
         targetSlot.remove();
     }
+    templ.innerHTML = '';
+    const ids = [];
+    for(const child of clone.children){
+        const id = 'be-gingerly-' + cnt;
+        child.id = id;
+        ids.push(id);
+        cnt++;
+    }
+    templ.setAttribute('itemref', ids.join(' '));
     templ.after(clone);
     return returnObj;
 }

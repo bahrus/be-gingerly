@@ -1,3 +1,4 @@
+let cnt = 0;
 export async function withTemplate(self) {
     const { itemCE } = self;
     const templ = self.enhancedElement;
@@ -39,6 +40,15 @@ export async function withTemplate(self) {
         targetSlot.after(slotPlaceHolder.cloneNode(true));
         targetSlot.remove();
     }
+    templ.innerHTML = '';
+    const ids = [];
+    for (const child of clone.children) {
+        const id = 'be-gingerly-' + cnt;
+        child.id = id;
+        ids.push(id);
+        cnt++;
+    }
+    templ.setAttribute('itemref', ids.join(' '));
     templ.after(clone);
     return returnObj;
 }

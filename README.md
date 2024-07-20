@@ -281,6 +281,59 @@ Here's a fully working example to hopefully make it clearer how we are "virtuali
 </script>
 ```
 
+This ends up generating the following HTML:
+
+```html
+<table>
+    <caption>
+        Front-end web developer course 2021
+    </caption>
+    <thead>
+        <tr>
+        <th scope="col">Person</th>
+        <th scope="col">Most interest in</th>
+        <th scope="col">Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-1"></template>
+            <tr id="be-gingerly-1">
+                <th scope="row"><table-row></table-row><span slot="person">Chris</span></th>
+                <th><span slot="interest">HTML tables</span></th>
+                <th><span slot="age">22</span></th>
+            </tr>
+            
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-0"></template>
+            <tr id="be-gingerly-0">
+                <th scope="row"><table-row></table-row><span slot="person">Dennis</span></th>
+                <th><span slot="interest">Web accessibility</span></th>
+                <th><span slot="age">45</span></th>
+            </tr>
+            
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-3"></template>
+            <tr id="be-gingerly-3">
+                <th scope="row"><table-row></table-row><span slot="person">Sarah</span></th>
+                <th><span slot="interest">JavaScript frameworks</span></th>
+                <th><span slot="age">29</span></th>
+            </tr>
+            
+        <template itemscope="table-row" 🫚="" itemref="be-gingerly-2"></template>
+            <tr id="be-gingerly-2">
+                <th scope="row"><table-row></table-row><span slot="person">Karen</span></th>
+                <th><span slot="interest">Web performance</span></th>
+                <th><span slot="age">36</span></th>
+            </tr>
+            
+    </tbody>
+    <tfoot>
+        <tr>
+        <th scope="row" colspan="2">Average age</th>
+        <td>33</td>
+        </tr>
+    </tfoot>
+    </table>
+```
+
 ## Viewing Your Element Locally
 
 Any web server that can serve static files will do, but...

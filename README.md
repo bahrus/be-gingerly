@@ -195,6 +195,31 @@ Sometimes out loop needs to group multiple rows of the table together in one loo
 </table>
 ```
 
+## Expanding the template [TODO]
+
+In fact, if *be-gingerly* is applied to a template that doesn't yet have an itemref attribute:
+
+```html
+<table>
+    <thead><th>Name</th><th>SSN Number</thead>
+    <tbody>
+        <template 🫚 itemscope=my-item>
+            <span slot=first-cell itemprop=name>Burt</span></slot>
+        </template>
+    </tbody>
+</table>
+```
+
+... then what this does is:
+
+1.  Awaits customElements.whenDefined('my-item');
+2.  Looks for static member of the class:  MyItem.config.mainTemplate
+3.  If it is a string, turns it into a template.
+4.  Clones the template.
+5.  Assigns id's for all top level elements.
+6.  Assigns the itemref attribute.
+7.  Does an oTemplate.after to append the content of the template adjacently.
+
 ## Viewing Your Element Locally
 
 Any web server that can serve static files will do, but...

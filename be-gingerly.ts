@@ -49,7 +49,9 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
         let ref: WeakRef<Element> | undefined;
         const ce = this.#doSearch(self);
         if(ce !== null) ref = new WeakRef(ce);
-
+        if(Object.hasOwn(enhancedElement, 'ownerElement')){
+            (<any>enhancedElement).ownerElement = ref;
+        }
         Object.defineProperty(enhancedElement, 'host', {
             get(){
                 return self.ref?.deref();

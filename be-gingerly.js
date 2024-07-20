@@ -46,6 +46,9 @@ class BeGingerly extends BE {
         const ce = this.#doSearch(self);
         if (ce !== null)
             ref = new WeakRef(ce);
+        if (Object.hasOwn(enhancedElement, 'ownerElement')) {
+            enhancedElement.ownerElement = ref;
+        }
         Object.defineProperty(enhancedElement, 'host', {
             get() {
                 return self.ref?.deref();

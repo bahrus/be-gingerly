@@ -170,6 +170,30 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 </table>
 ```
 
+## Support flat hierarchies [TODO]
+
+Sometimes out loop needs to group multiple rows of the table together in one loop iteration.  To support this, we need to search for the "hosting" custom element within all the referenced itemref's:
+
+```html
+<table>
+    <thead><th>Name</th><th>SSN Number</thead>
+    <tbody>
+        <template 🫚 itemscope=my-item itemref="a13245 b39596"></template>
+        <tr id=a13245>
+            <td>
+                <my-item></my-item>
+                <span itemprop=name>Burt</span>
+            </td>
+            <td itemprop=ssn>123-45-6789</td>
+        </tr>
+        <tr id=b39596>
+            <td itemprop=address>654 Penny Lane</td>
+            <td itemprop=cellphone>345-25-2686<</td>>
+        </tr>
+    </tbody>
+</table>
+```
+
 ## Viewing Your Element Locally
 
 Any web server that can serve static files will do, but...

@@ -1,6 +1,5 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
-import { assignGingerly } from 'trans-render/lib/assignGingerly.js';
 class BeGingerly extends BE {
     static config = {
         propDefaults: {
@@ -16,88 +15,29 @@ class BeGingerly extends BE {
             when_itemCE_changes_invoke_attachProp: 0
         },
         actions: {
-            doPass: {
-                ifAllOf: ['cnt', 'ref', 'queue']
-            },
-            searchAgain: {
-                ifAllOf: ['cnt'],
-                ifNoneOf: ['ref'],
-            }
+        // doPass: {
+        //     ifAllOf: ['cnt', 'ref', 'queue']
+        // },
+        // searchAgain:  {
+        //     ifAllOf: ['cnt'],
+        //     ifNoneOf: ['ref'],
+        // }
         },
         positractions: [
             ...beCnfg.positractions,
         ]
     };
     async attachProp(self) {
-        const { enhancedElement, cnt, itemCE } = self;
-        if (Object.hasOwn(enhancedElement, 'host'))
-            return {};
-        const queue = [];
-        const initPropVals = enhancedElement['host'];
-        if (enhancedElement instanceof HTMLElement) {
-            if (enhancedElement.dataset.hostInitProps) {
-                const parsedHostProps = JSON.parse(enhancedElement.dataset.hostInitProps);
-                queue.push(parsedHostProps);
-            }
+        const { AttachedHost } = await import('trans-render/dss/AttachedHost.js');
+        const { waitForEvent } = await import('trans-render/lib/isResolved.js');
+        const { enhancedElement } = self;
+        const ah = new AttachedHost(enhancedElement);
+        if (!ah.isResolved) {
+            await waitForEvent(ah, 'resolved');
         }
-        if (initPropVals !== undefined)
-            queue.push(initPropVals);
-        let ref;
-        const ce = await this.#doSearch(self);
-        if (ce !== null)
-            ref = new WeakRef(ce);
-        if (Object.hasOwn(enhancedElement, 'ownerElement')) {
-            enhancedElement.ownerElement = ref;
-        }
-        Object.defineProperty(enhancedElement, 'host', {
-            get() {
-                return self.ref?.deref();
-            },
-            set(nv) {
-                queue.push(nv);
-            },
-            enumerable: true,
-            configurable: true,
-        });
         return {
-            queue,
-            cnt: cnt + 1,
-            ref,
             resolved: true,
         };
-    }
-    async doPass(self) {
-        const { ref, queue } = self;
-        const ce = ref?.deref();
-        if (ce === undefined) {
-            return {
-                ref: undefined,
-            };
-        }
-        while (queue.length > 0) {
-            const fi = queue.shift();
-            await assignGingerly(ce, fi);
-        }
-        return {};
-    }
-    async #doSearch(self) {
-        const { enhancedElement, itemCE } = self;
-        if (enhancedElement instanceof HTMLTemplateElement) {
-            const { withTemplate } = await import('./withTemplate.js');
-            return await withTemplate(self);
-        }
-        return enhancedElement.querySelector(itemCE);
-    }
-    async searchAgain(self) {
-        const ce = await this.#doSearch(self);
-        if (ce !== null) {
-            return {
-                ref: new WeakRef(ce),
-            };
-        }
-        else {
-            return {};
-        }
     }
 }
 await BeGingerly.bootUp();

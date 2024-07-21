@@ -25,8 +25,7 @@ class BeGingerly extends BE<AP, Actions> implements Actions{
     };
     
     async attachProp(self: this) {
-        const {AttachedHost} = await import('trans-render/dss/AttachedHost.js');
-        const {waitForEvent} = await import('trans-render/lib/isResolved.js');
+        const {AttachedHost, waitForEvent} = await import('trans-render/dss/AttachedHost.js');
         const {enhancedElement} = self;
         const ah = new AttachedHost(enhancedElement);
         if(!ah.isResolved){

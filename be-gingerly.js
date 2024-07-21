@@ -14,15 +14,7 @@ class BeGingerly extends BE {
         compacts: {
             when_itemCE_changes_invoke_attachProp: 0
         },
-        actions: {
-        // doPass: {
-        //     ifAllOf: ['cnt', 'ref', 'queue']
-        // },
-        // searchAgain:  {
-        //     ifAllOf: ['cnt'],
-        //     ifNoneOf: ['ref'],
-        // }
-        },
+        actions: {},
         positractions: [
             ...beCnfg.positractions,
         ]

@@ -1,4 +1,4 @@
-import {IEnhancement} from 'trans-render/be/types';
+import { BEAllProps, IEnhancement } from './ts-refs/be-enhanced/types';
 
 export interface EndUserProps extends IEnhancement {
 }
@@ -15,7 +15,7 @@ export type PAP = Partial<AP>;
 export type ProPAP = Promise<PAP>;
 
 export interface Actions{
-    attachProp(self: this): ProPAP;
+    attachProp(self: AP & BEAllProps): ProPAP;
     // doPass(self: this): ProPAP;
     // searchAgain(self: this): ProPAP;
 }

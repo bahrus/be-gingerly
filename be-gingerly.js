@@ -1,5 +1,13 @@
+// @ts-check
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
+/** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
+/** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
+
+/**
+ * @implements {Actions}
+ * 
+ */
 class BeGingerly extends BE {
     static config = {
         propDefaults: {

@@ -2,7 +2,12 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
-/** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
+/** @import {Positraction} from './ts-refs/trans-render/froop/types.d.ts' */
+/** @import {Actions, PAP,  AP} from './types.d.ts' */;
+
+const inheritedPositractions = 
+    /** @type {Array<Positraction>} */
+    ([...beCnfg.positractions])
 
 /**
  * @implements {Actions}
@@ -27,9 +32,14 @@ class BeGingerly extends BE {
         },
         actions: {},
         positractions: [
-            ...beCnfg.positractions,
+            ...inheritedPositractions,
         ]
     };
+    /**
+     * 
+     * @param {AP & BEAllProps} self 
+     * @returns 
+     */
     async attachProp(self) {
         const { AttachedHost } = await import('trans-render/dss/AttachedHost.js');
         const { waitForEvent } = await import('trans-render/lib/isResolved.js');

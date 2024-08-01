@@ -15,7 +15,7 @@ How are they so effective at doing that?  I'll tell you how.
 
 Okay, it's a theory anyway.
 
-Sometimes when we are generating a loop of HTML on the server or on the client, we need a convenient place to pass the view model responsible for 
+Sometimes when we are generating a loop of repeated HTML on the server or on the client, we need a convenient place to pass the view model responsible for 
 generating the data that gets interspersed into the HTML section of the loop.
 
 One way this can be done is with an extremely light-weight rendering from the looping code (again, either on the server or the client) -- just rendering a single tag of a custom element for each iteration of the loop, and passing in the data for the view model, and let the custom element take care of the rest:
@@ -52,7 +52,9 @@ ${myList.map(item => html`
 
 
 
-While the example above so far poses no issues, we start to immediately get a sense of unease the moment we need to start performing intimate actions on individual rows / items of the view model.  How do we get access to the view model item associated with the row?  We start inventing ways to handle this, with id's, lots of ugly look ups, etc.  So we could have the fleeting thought "Hey, why don't I create a web component to contain each row, that can encapsulate the view model for each item of the list"? But of course the HTML decorum for tables doesn't allow us to do that.
+While the example above so far poses no issues, we start to immediately get a sense of unease the moment we need to start performing intimate actions on individual rows / items of the view model.  How do we get access to the view model item associated with the row?  We start inventing ways to handle this, with id's, lots of ugly look ups, etc.  
+
+Which brings us to the fleeting thought "Hey, why don't I create a web component to contain each row, that can encapsulate the view model for each item of the list"? But of course the HTML decorum for tables doesn't allow us to do that.
 
 I would venture that this problem space accounts for part of the appeal that frameworks bring to the table, beyond what can be handled by custom elements alone.  Lack of an interoperable solution to this fundamental problem may be partly to blame for causing this  framework "lock-in." We need an interoperable solution to this problem.
 
@@ -85,7 +87,7 @@ So then if the libraries we work with have an easy-to-reproduce-in-any-framework
 
 ```JavaScript
 async function getHostish(el: Element){
-    const closestItemScope = el.closest('itemscope');
+    const closestItemScope = el.closest('[itemscope]');
     if(closestItemScope !== null){
         if(closestItemScope.localName.indexOf('-')){
             //it's a custom element so this is probably our host
@@ -105,7 +107,7 @@ In other words, having established this protocol by necessity, we can then go ba
 
 ## So what does be-gingerly do?
 
-It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, and attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.  The host points to the custom element instance that the itemscope instances points to
+It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, *be-gingerly* attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.  The host points to the custom element instance that the itemscope instances points to
 
 Frameworks can then pass objects directly to the element that passes in the latest property values:
 

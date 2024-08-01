@@ -9,6 +9,9 @@ import { BE } from 'be-enhanced/BE.js';
  * 
  */
 class BeGingerly extends BE {
+    /**
+     * @type {BEConfig<AP & BEAllProps, Actions & IEnhancement, any>}
+     */
     static config = {
         propDefaults: {
             cnt: 0

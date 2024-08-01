@@ -1,13 +1,10 @@
 // @ts-check
-import { config as beCnfg } from 'be-enhanced/config.js';
+import { resolved, rejected, propInfo} from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
 /** @import {Positraction} from './ts-refs/trans-render/froop/types.d.ts' */
 /** @import {Actions, PAP,  AP} from './types.d.ts' */;
 
-const inheritedPositractions = 
-    /** @type {Array<Positraction>} */
-    ([...beCnfg.positractions])
 
 /**
  * @implements {Actions}
@@ -22,7 +19,7 @@ class BeGingerly extends BE {
             cnt: 0
         },
         propInfo: {
-            ...beCnfg.propInfo,
+            ...propInfo,
             queue: {},
             itemCE: {},
             ref: {},
@@ -32,7 +29,7 @@ class BeGingerly extends BE {
         },
         actions: {},
         positractions: [
-            ...inheritedPositractions,
+            resolved, rejected,
         ]
     };
     /**

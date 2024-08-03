@@ -117,9 +117,8 @@ html`
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
 ${myList.map(item => html`
-    <tr itemscope=my-item 🫚 .host=${item}>
+    <tr itemscope=my-item 🫚 .ish=${item}>
         <td>
-            <my-item></my-item>
             ${item.name}
         </td>
         <td>${item.ssn}</td>

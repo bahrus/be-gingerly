@@ -155,7 +155,7 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-        <tr itemscope="my-item"  be-gingerly data-gingerish='{"name": "Burt", "ssn": "123-45-6789"}'>
+        <tr itemscope="my-item"  be-gingerly data-gingerish='{"address": "123 Penny Lane", "zip": "12345"}'>
             <td>
                 <my-item></my-item>
                 Burt
@@ -191,8 +191,8 @@ When *be-gingerly/🫚* adorns a template:
 </template>
 <table>
     <thead><th>Entity</th><th></thead>
-    <tbody>
-        <template href=#row-src 🫚 itemscope=my-item>
+    <tbody 🫚>
+        <template href=#row-src  itemscope=my-item>
             <span slot=first-cell itemprop=name>Burt</span></slot>
         </template>
     </tbody>

@@ -139,7 +139,6 @@ It can also do the same for server generated JSON attributes:
     <tbody>
         <tr itemscope="my-item"  🫚 data-host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
             <td>
-                <my-item></my-item>
                 Burt
             </td>
             <td>123-45-6789</td>
@@ -147,10 +146,6 @@ It can also do the same for server generated JSON attributes:
     </tbody>
 </table>
 ```
-
-## Passing in the ownerElement
-
-If *be-gingerly* finds that the custom element has property "ownerElement", it will first pass a weak reference to the adorned element into that property.
 
 ## Canonical name
 

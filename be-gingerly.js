@@ -39,7 +39,7 @@ class BeGingerly extends BE {
         const { AttachedHost } = await import('trans-render/dss/AttachedHost.js');
         const { waitForEvent } = await import('trans-render/lib/isResolved.js');
         const { enhancedElement } = self;
-        const ah = new AttachedHost(enhancedElement);
+        const ah = new AttachedHost(enhancedElement, enhancedElement.getAttribute('itemscope'));
         if (!ah.isResolved) {
             await waitForEvent(ah, 'resolved');
         }

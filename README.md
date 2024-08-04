@@ -137,7 +137,7 @@ It can also do the same for server generated JSON attributes:
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-        <tr itemscope="my-item"  🫚 data-host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
+        <tr itemscope="my-item"  🫚 data-gingerish='{"name": "Burt", "ssn": "123-45-6789"}'>
             <td>
                 Burt
             </td>
@@ -150,7 +150,6 @@ It can also do the same for server generated JSON attributes:
 ## Canonical name
 
 To use the canonical name, reference behivior.js instead of 🫚.js and be more gingerly:
-
 
 ```html
 <table>
@@ -167,39 +166,24 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 </table>
 ```
 
-## Support flat hierarchies [Untested]
 
-Sometimes out loop needs to group multiple rows of the table together in one loop iteration.  To support this, we need to search for the "hosting" custom element within all the referenced itemref's:
+
+## Expanding the template [TODO]
+
+When *be-gingerly* adorns a template:
 
 ```html
+<template id=row-src>
+    <tr>
+        <th scope=row><slot name=self></slot><slot name=person></slot></th>
+        <td><slot name=interest></slot></td>
+        <td><slot name=age></slot></td>
+    </tr>
+</template>
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-        <template 🫚 itemscope=my-item itemref="a13245 b39596"></template>
-        <tr id=a13245>
-            <td>
-                <my-item></my-item>
-                <span itemprop=name>Burt</span>
-            </td>
-            <td itemprop=ssn>123-45-6789</td>
-        </tr>
-        <tr id=b39596>
-            <td itemprop=address>654 Penny Lane</td>
-            <td itemprop=cellphone>345-25-2686<</td>>
-        </tr>
-    </tbody>
-</table>
-```
-
-## Expanding the template
-
-In fact, if *be-gingerly* is applied to a template that doesn't yet have an itemref attribute:
-
-```html
-<table>
-    <thead><th>Name</th><th>SSN Number</thead>
-    <tbody>
-        <template 🫚 itemscope=my-item>
+        <template 🫚=row-src itemscope=my-item>
             <span slot=first-cell itemprop=name>Burt</span></slot>
         </template>
     </tbody>

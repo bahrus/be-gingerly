@@ -136,12 +136,12 @@ It can also do the same for server generated JSON attributes:
 ```html
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
-    <tbody>
-        <tr itemscope="my-item"  🫚 data-gingerish='{"name": "Burt", "ssn": "123-45-6789"}'>
-            <td>
+    <tbody 🫚>
+        <tr itemscope="my-item"  data-gingerish='{"address": "123 Penny Lane", "zip": "12345"}'>
+            <td itemprop=name>
                 Burt
             </td>
-            <td>123-45-6789</td>
+            <td itemprop=ssn>123-45-6789</td>
         </tr>
     </tbody>
 </table>

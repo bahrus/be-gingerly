@@ -115,9 +115,9 @@ Frameworks can then pass objects directly to the element that passes in the late
 html`
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
-    <tbody>
+    <tbody 🫚>
 ${myList.map(item => html`
-    <tr itemscope=my-item 🫚 .ish=${item}>
+    <tr itemscope=my-item .ish=${item}>
         <td>
             ${item.name}
         </td>
@@ -155,7 +155,7 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody>
-        <tr itemscope="my-item"  be-gingerly data-host-init-props='{"name": "Burt", "ssn": "123-45-6789"}'>
+        <tr itemscope="my-item"  be-gingerly data-gingerish='{"name": "Burt", "ssn": "123-45-6789"}'>
             <td>
                 <my-item></my-item>
                 Burt
@@ -170,20 +170,29 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 
 ## Expanding the template [TODO]
 
-When *be-gingerly* adorns a template:
+When *be-gingerly/🫚* adorns a template:
 
 ```html
 <template id=row-src>
-    <tr>
-        <th scope=row><slot name=self></slot><slot name=person></slot></th>
-        <td><slot name=interest></slot></td>
-        <td><slot name=age></slot></td>
-    </tr>
+    <template be-switched="on when applicable">
+        <tr itemprop=conditionalHeader>
+            <th scope=row><slot name=person></slot></th>
+            <td><slot name=interest></slot></td>
+            <td><slot name=age></slot></td>
+        </tr>
+    <template>
+    <template be-switched="on when some other condition is applicable">
+        <tr itemprop=conditionalHeader>
+            <th scope=row><slot name=self></slot><slot name=organization></slot></th>
+            <td><slot name=interest></slot></td>
+            <td><slot name=size></slot></td>
+        </tr>
+    </template>
 </template>
 <table>
-    <thead><th>Name</th><th>SSN Number</thead>
+    <thead><th>Entity</th><th></thead>
     <tbody>
-        <template 🫚=row-src itemscope=my-item>
+        <template href=#row-src 🫚 itemscope=my-item>
             <span slot=first-cell itemprop=name>Burt</span></slot>
         </template>
     </tbody>

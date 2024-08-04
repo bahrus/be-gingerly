@@ -192,7 +192,7 @@ When *be-gingerly/🫚* adorns a template:
 <table>
     <thead><th>Entity</th><th></thead>
     <tbody 🫚>
-        <template href=#row-src  itemscope=my-item>
+        <template href=#row-src  itemscope=my-item aria-index=11>
             <span slot=first-cell itemprop=name>Burt</span></slot>
         </template>
     </tbody>

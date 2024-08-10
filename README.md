@@ -107,7 +107,7 @@ In other words, having established this protocol by necessity, we can then go ba
 
 ## So what does be-gingerly do?
 
-It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, *be-gingerly* attaches a property getter/setter, "host" to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name of an inner custom element.  The host points to the custom element instance that the itemscope instances points to
+It commits a secondary sin, and attempts to shield frameworks from even having to bother supporting a function like we showed above.  Instead, *be-gingerly* attaches a property getter/setter, "ish", to elements that commit the cardinal sin of  adding attribute "itemscope," that has a value pointing to the name a custom element.  The ish property points to the custom element instance.
 
 Frameworks can then pass objects directly to the element that passes in the latest property values:
 
@@ -182,7 +182,7 @@ When *be-gingerly/🫚* adorns a template:
         </tr>
     <template>
     <template be-switched="on when some other condition is applicable">
-        <tr itemprop=conditionalHeader>
+        <tr itemprop=conditionalBody>
             <th scope=row><slot name=self></slot><slot name=organization></slot></th>
             <td><slot name=interest></slot></td>
             <td><slot name=size></slot></td>

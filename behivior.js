@@ -10,12 +10,6 @@ export const emc = {
     base: 'be-gingerly',
     enhPropKey: 'beGingerly',
     map: {},
-    osotas: [
-        {
-            name: 'itemscope',
-            mapsTo: 'itemCE'
-        }
-    ],
     importEnh: async () => {
         const { BeGingerly } = 
         /** @type {{new(): IEnhancement<Element>}} */ 

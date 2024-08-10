@@ -2,6 +2,8 @@
 /**
  * @import {XForm} from '../ts-refs/trans-render/types';
  * @import {Props, Actions} from './types';
+ * @implements {Partial<Props>}
+ * @implements {Actions}
  */
 export class MoodStone extends HTMLElement {
     static config = {
@@ -22,7 +24,7 @@ export class MoodStone extends HTMLElement {
     }
     set isHappy(nv) {
         this.#isHappy = nv;
-        this.root.querySelector('#target2').innerHTML = nv.toString();
+        //this.root.querySelector('#target2').innerHTML = nv.toString();
     }
     constructor() {
         super();

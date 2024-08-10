@@ -168,6 +168,10 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 </table>
 ```
 
+## Binding from a distance [TODO]
+
+If the custom element that is invoked has a static "config" property, and that config property contains a ["mount-observing transform"](https://github.com/bahrus/trans-render/wiki/V.--Mount%E2%80%90observing-transforms) with key "xform", then be-gingerly will update the DOM as the custom element properties change. 
+
 
 
 ## Viewing Your Element Locally

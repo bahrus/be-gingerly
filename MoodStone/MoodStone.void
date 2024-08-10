@@ -1,4 +1,7 @@
 export class MoodStone extends HTMLElement{
+    static config = {
+        xform:
+    };
     #isHappy = false;
     get isHappy(){
         return this.#isHappy;

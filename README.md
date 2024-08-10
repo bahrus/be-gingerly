@@ -191,7 +191,7 @@ Any web server that can serve static files will do, but...
 ## Using from ESM Module:
 
 ```JavaScript
-import 'be-gingerly/be-gingerly.js';
+import 'be-gingerly/🫚.js';
 ```
 
 ## Using from CDN:

@@ -137,7 +137,7 @@ It can also do the same for server generated JSON attributes:
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
     <tbody 🫚>
-        <tr itemscope="my-item"  data-gingerish='{"address": "123 Penny Lane", "zip": "12345"}'>
+        <tr itemscope="my-item"  -ish='{"address": "123 Penny Lane", "zip": "12345"}'>
             <td itemprop=name>
                 Burt
             </td>
@@ -147,6 +147,8 @@ It can also do the same for server generated JSON attributes:
 </table>
 ```
 
+The "-ish" attribute can alternatively be "data-ish"
+
 ## Canonical name
 
 To use the canonical name, reference behivior.js instead of 🫚.js and be more gingerly:
@@ -154,8 +156,8 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 ```html
 <table>
     <thead><th>Name</th><th>SSN Number</thead>
-    <tbody>
-        <tr itemscope="my-item"  be-gingerly data-gingerish='{"address": "123 Penny Lane", "zip": "12345"}'>
+    <tbody be-gingerly>
+        <tr itemscope="my-item"   data-ish='{"address": "123 Penny Lane", "zip": "12345"}'>
             <td>
                 <my-item></my-item>
                 Burt
@@ -167,191 +169,6 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 ```
 
 
-
-## Expanding the template
-
-When *be-gingerly/🫚* adorns a template:
-
-```html
-<script>
-    customElements.define('table-row', class extends HTMLElement {
-        attachedCallback(el){
-            console.log(el);
-        }
-    });
-</script>
-<template id=row-src>
-    <tr>
-        <th scope=row><slot name=self></slot><slot name=person></slot></th>
-        <th><slot name=interest></slot></th>
-        <th><slot name=age></slot></th>
-    </tr>
-</template>
-<table>
-    <caption>
-        Front-end web developer course 2021
-    </caption>
-    <thead>
-        <tr>
-        <th scope="col">Person</th>
-        <th scope="col">Most interest in</th>
-        <th scope="col">Age</th>
-        </tr>
-    </thead>
-    <tbody 🫚>
-        <template itemscope=table-row src=#row-src>
-            <span slot=person>Chris</span>
-            <span slot=interest>HTML tables</span>
-            <span slot=age>22</span>
-        </template>
-        <template itemscope=table-row src=#row-src>
-            <span slot=person>Dennis</span>
-            <span slot=interest>Web accessibility</span>
-            <span slot=age>45</span>
-        </template>
-        <template itemscope=table-row src=#row-src>
-            <span slot=person>Sarah</span>
-            <span slot=interest>JavaScript frameworks</span>
-            <span slot=age>29</span>
-        </template>
-        <template itemscope=table-row src=#row-src>
-            <span slot=person>Karen</span>
-            <span slot=interest>Web performance</span>
-            <span slot=age>36</span>
-        </template>
-    </tbody>
-    <tfoot>
-        <tr>
-        <th scope="row" colspan="2">Average age</th>
-        <td>33</td>
-        </tr>
-    </tfoot>
-    </table>
-```
-
-... then what this does is:
-
-1.  Awaits customElements.whenDefined('my-item');
-2.  Looks for static member of the class:  MyItem.config.mainTemplate
-3.  If it is a string, turns it into a template.
-4.  Clones the template.
-5.  Assigns id's for all top level elements.
-6.  Assigns the itemref attribute.
-7.  Does an oTemplate.after to append the content of the template adjacently.
-
-Here's a fully working example to hopefully make it clearer how we are "virtualizing" custom elements so that they can act as table rows:
-
-```html
-<script>
-    customElements.define('table-row', class extends HTMLElement {
-        static config = {
-            mainTemplate: String.raw `
-            <tr>
-                <th scope=row><slot name=self></slot><slot name=person></slot></th>
-                <td><slot name=interest></slot></td>
-                <td><slot name=age></slot></td>
-            </tr>
-            `
-        };
-    });
-</script>
-<table>
-    <caption>
-        Front-end web developer course 2021
-    </caption>
-    <thead>
-        <tr>
-        <th scope="col">Person</th>
-        <th scope="col">Most interest in</th>
-        <th scope="col">Age</th>
-        </tr>
-    </thead>
-    <tbody>
-        <template itemscope=table-row 🫚>
-            <span slot=person>Chris</span>
-            <span slot=interest>HTML tables</span>
-            <span slot=age>22</span>
-        </template>
-        <template itemscope=table-row 🫚>
-            <span slot=person>Dennis</span>
-            <span slot=interest>Web accessibility</span>
-            <span slot=age>45</span>
-        </template>
-        <template itemscope=table-row  🫚>
-            <span slot=person>Sarah</span>
-            <span slot=interest>JavaScript frameworks</span>
-            <span slot=age>29</span>
-        </template>
-        <template itemscope=table-row 🫚>
-            <span slot=person>Karen</span>
-            <span slot=interest>Web performance</span>
-            <span slot=age>36</span>
-        </template>
-    </tbody>
-    <tfoot>
-        <tr>
-        <th scope="row" colspan="2">Average age</th>
-        <td>33</td>
-        </tr>
-    </tfoot>
-    </table>
-<script type=module>
-    import '/🫚.js';
-</script>
-```
-
-This ends up generating the following HTML:
-
-```html
-<table>
-    <caption>
-        Front-end web developer course 2021
-    </caption>
-    <thead>
-        <tr>
-        <th scope="col">Person</th>
-        <th scope="col">Most interest in</th>
-        <th scope="col">Age</th>
-        </tr>
-    </thead>
-    <tbody>
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-3"></template>
-            <tr id="be-gingerly-3">
-                <th scope="row"><table-row></table-row><span slot="person">Chris</span></th>
-                <td><span slot="interest">HTML tables</span></td>
-                <td><span slot="age">22</span></td>
-            </tr>
-            
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-1"></template>
-            <tr id="be-gingerly-1">
-                <th scope="row"><table-row></table-row><span slot="person">Dennis</span></th>
-                <td><span slot="interest">Web accessibility</span></td>
-                <td><span slot="age">45</span></td>
-            </tr>
-            
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-2"></template>
-            <tr id="be-gingerly-2">
-                <th scope="row"><table-row></table-row><span slot="person">Sarah</span></th>
-                <td><span slot="interest">JavaScript frameworks</span></td>
-                <td><span slot="age">29</span></td>
-            </tr>
-            
-        <template itemscope="table-row" 🫚="" itemref="be-gingerly-0"></template>
-            <tr id="be-gingerly-0">
-                <th scope="row"><table-row></table-row><span slot="person">Karen</span></th>
-                <td><span slot="interest">Web performance</span></td>
-                <td><span slot="age">36</span></td>
-            </tr>
-            
-    </tbody>
-    <tfoot>
-        <tr>
-        <th scope="row" colspan="2">Average age</th>
-        <td>33</td>
-        </tr>
-    </tfoot>
-</table>
-```
 
 ## Viewing Your Element Locally
 

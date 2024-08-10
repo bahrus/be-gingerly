@@ -19,17 +19,18 @@
 <body>
     <script>
         customElements.define('table-row', class extends HTMLElement {
-            static config = {
-                mainTemplate: String.raw `
-                <tr>
-                    <th scope=row><slot name=self></slot><slot name=person></slot></th>
-                    <td><slot name=interest></slot></td>
-                    <td><slot name=age></slot></td>
-                </tr>
-                `
-            };
+            attachedCallback(el){
+                console.log(el);
+            }
         });
     </script>
+    <template id=row-src>
+        <tr>
+            <th scope=row><slot name=self></slot><slot name=person></slot></th>
+            <td><slot name=interest></slot></td>
+            <td><slot name=age></slot></td>
+        </tr>
+    </template>
     <table>
         <caption>
           Front-end web developer course 2021
@@ -41,23 +42,23 @@
             <th scope="col">Age</th>
           </tr>
         </thead>
-        <tbody>
-            <template itemscope=table-row 🫚>
+        <tbody 🫚>
+            <template itemscope=table-row src=#row-src>
                 <span slot=person>Chris</span>
                 <span slot=interest>HTML tables</span>
                 <span slot=age>22</span>
             </template>
-            <template itemscope=table-row 🫚>
+            <template itemscope=table-row src=#row-src>
                 <span slot=person>Dennis</span>
                 <span slot=interest>Web accessibility</span>
                 <span slot=age>45</span>
             </template>
-            <template itemscope=table-row  🫚>
+            <template itemscope=table-row src=#row-src>
                 <span slot=person>Sarah</span>
                 <span slot=interest>JavaScript frameworks</span>
                 <span slot=age>29</span>
             </template>
-            <template itemscope=table-row 🫚>
+            <template itemscope=table-row src=#row-src>
                 <span slot=person>Karen</span>
                 <span slot=interest>Web performance</span>
                 <span slot=age>36</span>
@@ -69,15 +70,16 @@
             <td>33</td>
           </tr>
         </tfoot>
-    </table>
+      </table>
     <div id=target></div>
     <script type=module>
         import '/🫚.js';
     </script>
     <script>
         function runTest(){
-            const list = document.querySelectorAll('table>tbody>tr>td>span[slot="interest"]');
-            if(list.length === 4) target.setAttribute('mark', 'good');
+            const list = document.querySelectorAll('table>tbody>tr>td>span');
+            console.log({list});
+            if(list.length === 8) target.setAttribute('mark', 'good');
         }
         setTimeout(() => {
             runTest();

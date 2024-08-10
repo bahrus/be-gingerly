@@ -15,8 +15,5 @@ export type PAP = Partial<AP>;
 export type ProPAP = Promise<PAP>;
 
 export interface Actions{
-    //attachProp(self: AP & BEAllProps): ProPAP;
-    // doPass(self: this): ProPAP;
-    // searchAgain(self: this): ProPAP;
 }
 

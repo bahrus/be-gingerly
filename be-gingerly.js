@@ -2,6 +2,7 @@
 import { resolved, rejected, propInfo} from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
+import { clone } from 'trans-render/xslt/clone.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
 /** @import {Actions, PAP,  AP} from './types.d.ts' */;
 /** @import {EnhancementInfo} from './ts-refs/trans-render/be/types.d.ts' */
@@ -33,28 +34,12 @@ class BeGingerly extends BE {
         ]
     };
     
-    /**
-     * 
-     * @param {AP & BEAllProps} self 
-     * @returns 
-     */
-    async attachProp(self) {
-        // const { AttachedHost } = await import('trans-render/dss/AttachedHost.js');
-        // const { waitForEvent } = await import('trans-render/lib/isResolved.js');
-        // const { enhancedElement } = self;
-        // const ah = new AttachedHost(enhancedElement, enhancedElement.getAttribute('itemscope'));
-        // if (!ah.isResolved) {
-        //     await waitForEvent(ah, 'resolved');
-        // }
-        // return {
-        //     resolved: true,
-        // };
-    }
 
     /**
      * 
      * @param {Element} enhancedElement 
-     * @param {EnhancementInfo} enhancementInfo 
+     * @param {EnhancementInfo} enhancementInfo
+     * @override 
      */
     async attach(enhancedElement, enhancementInfo) {
         super.attach(enhancedElement, enhancementInfo);
@@ -62,8 +47,16 @@ class BeGingerly extends BE {
             on: '[itemscope*="-"]',
             do:{
                 mount: async (matchingElement) => {
-                    const {Newish} = await import('trans-render/dss/Newish.js');
+                    const {Newish, waitForEvent} = await import('trans-render/dss/Newish.js');
                     const itemscope = /** @type {string} */ (matchingElement.getAttribute('itemscope'));
+                    if(matchingElement instanceof HTMLTemplateElement){
+                        const {cloneKey} = await import('mount-observer/compose.js');
+                        if(matchingElement.hasAttribute('src') || !/** {type any} */(matchingElement)[cloneKey]){
+                            await waitForEvent(matchingElement, 'load');
+                        }
+                        const {tagTempl} = await import('trans-render/dss/tref/tagTempl.js');
+                        tagTempl(matchingElement, 'be-gingerly');
+                    }
                     const ish = new Newish(matchingElement, itemscope);
                 }
             }

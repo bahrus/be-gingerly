@@ -168,35 +168,65 @@ To use the canonical name, reference behivior.js instead of 🫚.js and be more 
 
 
 
-## Expanding the template [TODO]
+## Expanding the template
 
 When *be-gingerly/🫚* adorns a template:
 
 ```html
+<script>
+    customElements.define('table-row', class extends HTMLElement {
+        attachedCallback(el){
+            console.log(el);
+        }
+    });
+</script>
 <template id=row-src>
-    <template be-switched="on when applicable">
-        <tr itemprop=conditionalHeader>
-            <th scope=row><slot name=person></slot></th>
-            <td><slot name=interest></slot></td>
-            <td><slot name=age></slot></td>
-        </tr>
-    <template>
-    <template be-switched="on when some other condition is applicable">
-        <tr itemprop=conditionalBody>
-            <th scope=row><slot name=self></slot><slot name=organization></slot></th>
-            <td><slot name=interest></slot></td>
-            <td><slot name=size></slot></td>
-        </tr>
-    </template>
+    <tr>
+        <th scope=row><slot name=self></slot><slot name=person></slot></th>
+        <th><slot name=interest></slot></th>
+        <th><slot name=age></slot></th>
+    </tr>
 </template>
 <table>
-    <thead><th>Entity</th><th></thead>
+    <caption>
+        Front-end web developer course 2021
+    </caption>
+    <thead>
+        <tr>
+        <th scope="col">Person</th>
+        <th scope="col">Most interest in</th>
+        <th scope="col">Age</th>
+        </tr>
+    </thead>
     <tbody 🫚>
-        <template href=#row-src  itemscope=my-item aria-index=11>
-            <span slot=first-cell itemprop=name>Burt</span></slot>
+        <template itemscope=table-row src=#row-src>
+            <span slot=person>Chris</span>
+            <span slot=interest>HTML tables</span>
+            <span slot=age>22</span>
+        </template>
+        <template itemscope=table-row src=#row-src>
+            <span slot=person>Dennis</span>
+            <span slot=interest>Web accessibility</span>
+            <span slot=age>45</span>
+        </template>
+        <template itemscope=table-row src=#row-src>
+            <span slot=person>Sarah</span>
+            <span slot=interest>JavaScript frameworks</span>
+            <span slot=age>29</span>
+        </template>
+        <template itemscope=table-row src=#row-src>
+            <span slot=person>Karen</span>
+            <span slot=interest>Web performance</span>
+            <span slot=age>36</span>
         </template>
     </tbody>
-</table>
+    <tfoot>
+        <tr>
+        <th scope="row" colspan="2">Average age</th>
+        <td>33</td>
+        </tr>
+    </tfoot>
+    </table>
 ```
 
 ... then what this does is:

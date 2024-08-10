@@ -57,13 +57,22 @@ class BeGingerly extends BE {
                         const {tagTempl} = await import('trans-render/dss/tref/tagTempl.js');
                         tagTempl(matchingElement, 'be-gingerly');
                     }
-                    new Newish(matchingElement, itemscope);
+                    const newish = new Newish(matchingElement, itemscope);
+                    if(!newish.isResolved){
+                        await waitForEvent(newish, 'resolved');
+                    }
                     const ishAttr = matchingElement.getAttribute('data-ish') || matchingElement.getAttribute('-ish');
-                    
+                    const ish = /** @type {any} */(matchingElement).ish;
                     if(ishAttr !== null){
                         const parsedAttr = JSON.parse(ishAttr);
-                        Object.assign(/** @type {any} */(matchingElement).ish, parsedAttr);
+                        Object.assign(ish, parsedAttr);
                     }
+                    const xform = ish.constructor?.config?.xform;
+                    if(xform !== undefined){
+                        const {Transform} = await import('trans-render/Transform.js');
+                        Transform(matchingElement, ish, xform);
+                    }
+
                 }
             }
         });

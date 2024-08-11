@@ -2,7 +2,6 @@
 import { resolved, rejected, propInfo} from 'be-enhanced/cc.js';
 import { BE } from 'be-enhanced/BE.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
-import { clone } from 'trans-render/xslt/clone.js';
 /** @import {BEConfig, IEnhancement, BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
 /** @import {Actions, PAP,  AP} from './types.d.ts' */;
 /** @import {EnhancementInfo} from './ts-refs/trans-render/be/types.d.ts' */
@@ -70,7 +69,20 @@ class BeGingerly extends BE {
                     const xform = ish.constructor?.config?.xform;
                     if(xform !== undefined){
                         const {Transform} = await import('trans-render/Transform.js');
-                        Transform(matchingElement, ish, xform);
+                        if(matchingElement instanceof HTMLTemplateElement){
+                            const itemref = matchingElement.getAttribute('itemref');
+                            if(itemref !== null){
+                                const {getChildren} = await import('trans-render/dss/tref/getChildren.js');
+                                const children = getChildren(matchingElement, itemref);
+                                for(const child of children){
+                                    Transform(child, ish, xform);
+                                }
+                            }
+                            
+                        }else{
+                            Transform(matchingElement, ish, xform);
+                        }
+                        
                     }
 
                 }

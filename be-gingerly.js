@@ -89,6 +89,7 @@ class BeGingerly extends BE {
             }
         });
         mo.observe(enhancedElement);
+        this.resolved = true;
     }
 }
 await BeGingerly.bootUp();
